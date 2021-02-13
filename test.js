@@ -1,6 +1,6 @@
 'use strict';
 
-const { humanizedNumberFrom } = require('./app');
+const { humanizedNumberFrom } = require('./number_humanizer');
 
 describe('humanizedNumberFrom', () => {
   describe('when input is single digit long', () => {
