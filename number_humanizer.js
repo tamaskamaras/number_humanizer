@@ -6,13 +6,15 @@ const toTens = (number) => {
     case 1:
       return PLACE_VALUES.ones[number];
     case 2:
-      let result = PLACE_VALUES.tens[number[0]];
+      let first, second;
+      [firstDigit, secondDigit] = number.split('');
+      let result = PLACE_VALUES.tens[firstDigit];
 
-      if (number[0] === '1') {
-        return result[number[1]]
+      if (firstDigit === '1') {
+        return result[secondDigit];
       }
-      if (number[1] !== '0') {
-        result += `-${PLACE_VALUES.ones[number[1]]}`
+      if (secondDigit !== '0') {
+        result += `-${PLACE_VALUES.ones[secondDigit]}`;
       }
       return result;
     default:
