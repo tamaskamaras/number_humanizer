@@ -14,7 +14,7 @@ describe('humanizedNumberFrom', () => {
   describe('when input is 2 digit long', () => {
     test('returns the input in human text format', () => {
       expect(humanizedNumberFrom(20)).toEqual('twenty')
-      expect(humanizedNumberFrom(42)).toEqual('forty-two')
+      expect(humanizedNumberFrom(42)).toEqual('fourty-two')
       expect(humanizedNumberFrom(70)).toEqual('seventy')
     })
   })

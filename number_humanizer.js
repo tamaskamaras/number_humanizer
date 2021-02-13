@@ -6,7 +6,17 @@ const toTens = (number) => {
     case 1:
       return PLACE_VALUES.ones[number];
     case 2:
-      return PLACE_VALUES.tens[number];
+      let result = PLACE_VALUES.tens[number[0]];
+
+      if (number[0] === '1') {
+        return result[number[1]]
+      }
+      if (number[1] !== '0') {
+        result += `-${PLACE_VALUES.ones[number[1]]}`
+      }
+      return result;
+    default:
+      console.error('length of argument must be between 1..2')
   }
 };
 
