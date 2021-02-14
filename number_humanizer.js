@@ -41,10 +41,14 @@ exports.humanizedNumberFrom = (inputNumber) => {
   };
 
   const hundredsFrom = (number) => {
-    // console.log('number.slice(-2):', number.slice(-2));
     let currentNumber = tensFrom(number.slice(-2))
     number = number.slice(0, -2)
-    // console.log('currentNumber:', currentNumber);
+
+    if (number.slice(-1).match(/[1-9]/)) {
+      let hundred = `${tensFrom(number.slice(-1))} hundred`;
+      currentNumber = currentNumber.length ? `${hundred} and ${currentNumber}` : hundred;
+    }
+
     return currentNumber;
   };
 
@@ -63,7 +67,7 @@ exports.humanizedNumberFrom = (inputNumber) => {
     currentNumber += ` ${stepName}`
 
     result = result ? `${currentNumber} ${result}` : currentNumber
-    baseNumber = baseNumber.slice(0, -2)
+    baseNumber = baseNumber.slice(0, -3)
   }
 
   return result;

@@ -47,7 +47,7 @@ describe('humanizedNumberFrom', () => {
     test('returns the input in human text format', () => {
       expect(humanizedNumberFrom(600000)).toEqual('six hundred thousand')
       expect(humanizedNumberFrom(824890))
-      .toEqual('eight hundred and twenty-four thousand eight hundred and eighty')
+      .toEqual('eight hundred and twenty-four thousand eight hundred and ninety')
     })
   })
 })
