@@ -16,7 +16,7 @@ const tensFrom = (number) => {
         let currentNumber = PLACE_VALUES.ones[secondDigit];
         result = result ? `${result}-${currentNumber}` : currentNumber
       }
-      return result || '';
+      return result;
     default:
       console.error('length of argument must be between 1..2');
   }
@@ -32,6 +32,14 @@ exports.humanizedNumberFrom = (inputNumber) => {
     return baseNumber.length === 2 && firstDigit === '1' && secondDigit !== '0';
   };
 
+  const prependSingleHundredIfNeeded = (number, text) => {
+    if (number.slice(-1).match(/[1-9]/)) {
+      let hundred = `${tensFrom(number.slice(-1))} hundred`;
+      text = text ? `${hundred} and ${text}` : hundred
+    }
+    return text;
+  };
+
   const setSingleHundred = () => {
     if (baseNumber.slice(-1).match(/[1-9]/)) {
       let hundred = `${tensFrom(baseNumber.slice(-1))} hundred`;
@@ -41,15 +49,10 @@ exports.humanizedNumberFrom = (inputNumber) => {
   };
 
   const hundredsFrom = (number) => {
-    let currentNumber = tensFrom(number.slice(-2))
-    number = number.slice(0, -2)
-
-    if (number.slice(-1).match(/[1-9]/)) {
-      let hundred = `${tensFrom(number.slice(-1))} hundred`;
-      currentNumber = currentNumber.length ? `${hundred} and ${currentNumber}` : hundred;
-    }
-
-    return currentNumber;
+    return prependSingleHundredIfNeeded(
+      number.slice(-3, -2),
+      tensFrom(number.slice(-2))
+    );
   };
 
   if (irregularHundredsNeeded()) {
@@ -63,7 +66,6 @@ exports.humanizedNumberFrom = (inputNumber) => {
   for (const stepName of STEPS) {
     if (!baseNumber.length) { break; }
     let currentNumber = hundredsFrom(baseNumber.slice(-3))
-
     currentNumber += ` ${stepName}`
 
     result = result ? `${currentNumber} ${result}` : currentNumber
