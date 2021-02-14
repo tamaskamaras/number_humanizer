@@ -23,13 +23,25 @@ exports.humanizedNumberFrom = (inputNumber) => {
     }
   };
 
-  const irregularHundredsNeededFrom = (number) => {
-    let [firstDigit, secondDigit] = number.slice(-2).split('');
-    return number.length === 2 && firstDigit === '1' && secondDigit !== '0';
+  const irregularHundredsNeeded = () => {
+    let [firstDigit, secondDigit] = baseNumber.slice(-2).split('');
+    return baseNumber.length === 2 && firstDigit === '1' && secondDigit !== '0';
   };
 
+  const resultWithIrregularHundreds = () => {
+    let ret = `${tensFrom(baseNumber)} hundred`
+    if (result) {
+      return `${ret} and ${result}`;
+    }
+    return ret;
+  }
+
+  const singleHundredIfNeededFrom = (number) => {
+    return number.slice(-1).match(/[1-9]/);
+  }
+
   const prependSingleHundredIfNeeded = (number, text) => {
-    if (number.slice(-1).match(/[1-9]/)) {
+    if (singleHundredIfNeededFrom(number)) {
       let hundred = `${tensFrom(number.slice(-1))} hundred`;
       text = text ? `${hundred} and ${text}` : hundred
     }
@@ -47,10 +59,8 @@ exports.humanizedNumberFrom = (inputNumber) => {
   let result = tensFrom(baseNumber.slice(-2));
   baseNumber = baseNumber.slice(0, -2)
 
-  if (irregularHundredsNeededFrom(baseNumber)) {
-    let resultWithIrregular = `${tensFrom(baseNumber)} hundred`
-    if (result) { resultWithIrregular += ` and ${result}` }
-    return resultWithIrregular;
+  if (irregularHundredsNeeded()) {
+    return resultWithIrregularHundreds();
   }
 
   result = prependSingleHundredIfNeeded(baseNumber, result)
