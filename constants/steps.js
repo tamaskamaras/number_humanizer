@@ -1,5 +1,4 @@
 exports.STEPS = [
-  'hundred',
   'thousand',
   'million',
   'billion',
