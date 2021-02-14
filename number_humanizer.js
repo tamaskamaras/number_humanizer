@@ -23,6 +23,13 @@ exports.humanizedNumberFrom = (inputNumber) => {
     }
   };
 
+  const hundredsFrom = (number) => {
+    return prependSingleHundredIfNeeded(
+      number.slice(-3, -2),
+      tensFrom(number.slice(-2))
+    );
+  };
+
   const irregularHundredsNeeded = () => {
     let [firstDigit, secondDigit] = baseNumber.slice(-2).split('');
     return baseNumber.length === 2 && firstDigit === '1' && secondDigit !== '0';
@@ -36,23 +43,16 @@ exports.humanizedNumberFrom = (inputNumber) => {
     return ret;
   }
 
-  const singleHundredIfNeededFrom = (number) => {
+  const singleHundredNeededFrom = (number) => {
     return number.slice(-1).match(/[1-9]/);
   }
 
   const prependSingleHundredIfNeeded = (number, text) => {
-    if (singleHundredIfNeededFrom(number)) {
+    if (singleHundredNeededFrom(number)) {
       let hundred = `${tensFrom(number.slice(-1))} hundred`;
       text = text ? `${hundred} and ${text}` : hundred
     }
     return text;
-  };
-
-  const hundredsFrom = (number) => {
-    return prependSingleHundredIfNeeded(
-      number.slice(-3, -2),
-      tensFrom(number.slice(-2))
-    );
   };
 
   let baseNumber = inputNumber.toString();
