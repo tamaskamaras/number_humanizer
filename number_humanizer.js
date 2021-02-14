@@ -40,14 +40,6 @@ exports.humanizedNumberFrom = (inputNumber) => {
     return text;
   };
 
-  const setSingleHundred = () => {
-    if (baseNumber.slice(-1).match(/[1-9]/)) {
-      let hundred = `${tensFrom(baseNumber.slice(-1))} hundred`;
-      result = result ? `${hundred} and ${result}` : hundred
-    }
-    baseNumber = baseNumber.slice(0, -1)
-  };
-
   const hundredsFrom = (number) => {
     return prependSingleHundredIfNeeded(
       number.slice(-3, -2),
@@ -61,7 +53,8 @@ exports.humanizedNumberFrom = (inputNumber) => {
     return resultWithIrregular;
   }
 
-  setSingleHundred()
+  result = prependSingleHundredIfNeeded(baseNumber, result)
+  baseNumber = baseNumber.slice(0, -1)
 
   for (const stepName of STEPS) {
     if (!baseNumber.length) { break; }
