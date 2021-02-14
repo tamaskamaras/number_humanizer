@@ -22,10 +22,6 @@ const tensFrom = (number) => {
   }
 };
 
-const hundredsFrom = () => {
-  // TODO
-};
-
 exports.humanizedNumberFrom = (inputNumber) => {
   let baseNumber = inputNumber.toString();
   let result = tensFrom(baseNumber.slice(-2));
@@ -36,12 +32,20 @@ exports.humanizedNumberFrom = (inputNumber) => {
     return baseNumber.length === 2 && firstDigit === '1' && secondDigit !== '0';
   };
 
-  const setHundred = () => {
-    if (baseNumber) {
+  const setSingleHundred = () => {
+    if (baseNumber.slice(-1).match(/[1-9]/)) {
       let hundred = `${tensFrom(baseNumber.slice(-1))} hundred`;
       result = result ? `${hundred} and ${result}` : hundred
-      baseNumber = baseNumber.slice(0, -1)
     }
+    baseNumber = baseNumber.slice(0, -1)
+  };
+
+  const hundredsFrom = (number) => {
+    // console.log('number.slice(-2):', number.slice(-2));
+    let currentNumber = tensFrom(number.slice(-2))
+    number = number.slice(0, -2)
+    // console.log('currentNumber:', currentNumber);
+    return currentNumber;
   };
 
   if (irregularHundredsNeeded()) {
@@ -50,14 +54,15 @@ exports.humanizedNumberFrom = (inputNumber) => {
     return resultWithIrregular;
   }
 
-  setHundred();
+  setSingleHundred()
 
   for (const stepName of STEPS) {
     if (!baseNumber.length) { break; }
-    currentNumber  = tensFrom(baseNumber.slice(-2))
+    let currentNumber = hundredsFrom(baseNumber.slice(-3))
+
     currentNumber += ` ${stepName}`
 
-    result = result ? `${currentNumber} and ${result}` : currentNumber
+    result = result ? `${currentNumber} ${result}` : currentNumber
     baseNumber = baseNumber.slice(0, -2)
   }
 

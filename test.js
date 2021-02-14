@@ -30,7 +30,7 @@ describe('humanizedNumberFrom', () => {
   describe('when input is 4 digit long', () => {
     test('returns the input in human text format', () => {
       expect(humanizedNumberFrom(1999)).toEqual('nineteen hundred and ninety-nine')
-      expect(humanizedNumberFrom(2001)).toEqual('two thousand and one')
+      expect(humanizedNumberFrom(2001)).toEqual('two thousand one')
       expect(humanizedNumberFrom(3000)).toEqual('three thousand')
     })
   })
@@ -45,7 +45,7 @@ describe('humanizedNumberFrom', () => {
 
   describe('when input is 6 digit long', () => {
     test('returns the input in human text format', () => {
-      expect(humanizedNumberFrom(600000)).toEqual('six houndred thousand')
+      expect(humanizedNumberFrom(600000)).toEqual('six hundred thousand')
       expect(humanizedNumberFrom(824890))
       .toEqual('eight hundred and twenty-four thousand eight hundred and eighty')
     })
