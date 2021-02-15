@@ -1,4 +1,12 @@
 {
+  "name": "number_humanizer",
+  "description": "Convert arabic numbers into english phrases",
+  "version": "1.0.0",
+  "author": "Tamas Kamaras <kamaras.tamas.viktor@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tamaskamaras/number_humanizer.git"
+  },
   "devDependencies": {
     "eslint": "^7.20.0",
     "jest": "^26.6.3"
